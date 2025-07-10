@@ -1,15 +1,21 @@
 import { createApp } from './app';
+import { env } from './config/env';
 
-const start = async () => {
+async function start() {
   try {
     const app = await createApp();
-
-    await app.listen({ port: 3000, host: "0.0.0.0" });
-    console.log("🚀 Server listening at http://localhost:3000");
-  } catch (err) {
-    console.error('Failed to start server:', err);
+    
+    await app.listen({ 
+      port: env.PORT, 
+      host: '0.0.0.0' 
+    });
+    
+    console.log(`🚀 Server running on http://localhost:${env.PORT}`);
+    console.log(`📚 API Documentation available at http://localhost:${env.PORT}/docs`);
+  } catch (error) {
+    console.error('Error starting server:', error);
     process.exit(1);
   }
-};
+}
 
 start();
